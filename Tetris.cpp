@@ -1,6 +1,7 @@
 // Tetris.cpp
 
 #include<iostream>
+#include<conio.h>
 #include<windows.h>
 using namespace std;
 
@@ -11,9 +12,51 @@ void gotoXY(int x, int y) {
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
-int main(){
+void rotarMatrizDer(int matriz[4][4]) {
+	//Temp array
+	int r[4][4];
+	//Turning columns in rows
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			r[i][j] = matriz[3-j][i];
+		}
+	}
+	//Filling the original array
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			matriz[i][j] = r[i][j];
+		}
+	}
+}
+void rotarMatrizIzq(int matriz[4][4]) {
+	//Temp array
+	int r[4][4];
+	//Turning columns in rows
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			r[i][j] = matriz[j][3-i];
+		}
+	}
+	//Filling the original array
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			matriz[i][j] = r[i][j];
+		}
+	}
+}
 
-	int i, j, x, y;
+int main(){
+	system("cls");
+	int i, j, y;
+	char x;
 	
 	int tetrominos[7];	// List of all pieces
 	for(i = 0; i < 7; ++i) tetrominos[i] = i+1;
@@ -26,9 +69,43 @@ int main(){
 	int tetr7[4][4] = {{0, 0, 0, 0},{0, 0, 1, 0},{0, 1, 1, 1},{0, 0, 0, 0}}; // T piece
 
 	do{
-
-
-	} while (!1);
+		gotoXY(0,4);
+		x = getch();
+		switch (x)
+		{
+		case 'a':
+		rotarMatrizIzq(tetr3);
+			gotoXY(0,0);
+			for (i = 0; i < 4; i++)
+			{
+				for (j = 0; j < 4; j++)
+				{
+					cout << tetr3[i][j];
+				}
+				cout << endl;
+			}
+			cout << endl;
+						
+			break;
+		case 'd':
+			rotarMatrizDer(tetr3);
+			gotoXY(0,0);
+			for (i = 0; i < 4; i++)
+			{
+				for (j = 0; j < 4; j++)
+				{
+					cout << tetr3[i][j];
+				}
+				cout << endl;
+			}
+			cout << endl;
+			
+			break;
+		
+		default:
+			break;
+		}
+	} while (~0);
 
 	for(x = 0; x < 7; ++x){
 		for(i = 0; i < 4; ++i){
