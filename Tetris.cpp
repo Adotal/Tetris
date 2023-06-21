@@ -12,6 +12,48 @@ void gotoXY(int x, int y) {
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
+void girarIzq(int matriz1[4][4]){
+     int i=0, j=0, k=0, l=0, celda=0;
+     int capas = 4 / 2;
+     int posiciones;
+
+     for(k = 0, posiciones = 4-1; k < capas; ++k, posiciones -= 2){
+          for(l = posiciones; l > 0; --l){
+
+               celda = matriz1[k][k]; 
+               j = i = k;
+               while(i < posiciones+k){
+                    matriz1[j][i] = matriz1[j][i+1];
+                    ++i;
+               }
+               while(j < posiciones+k){
+                    matriz1[j][i] = matriz1[j+1][i];
+                    ++j;
+               }
+               while(i > k){
+                    matriz1[j][i] = matriz1[j][i-1];
+                    --i;
+               }
+               while(j > k+1){
+                    matriz1[j][i] = matriz1[j-1][i];
+                    --j;
+               }
+               matriz1[j][i] = celda;
+          }
+     }
+}
+
+void printMatriz(int matriz1[4][4]){
+
+     for(unsigned int i = 0; i < 4; ++i){
+          for(unsigned int j = 0; j < 4; ++j){
+               cout << matriz1[i][j] << ' ';
+          }
+          cout << endl;
+     }
+}
+
+
 void rotarMatrizDer(int matriz[4][4]) {
 	//Temp array
 	int r[4][4];
