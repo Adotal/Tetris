@@ -114,19 +114,39 @@ void moveMRight(char matriz1[4][4], char arena[20][10], int leng, int &x, int y)
 		++x;
 		printM(matriz1, leng, x , y);
 	}
-
 }
 
+void moveMDown(char matriz1[4][4], char arena[20][10], int leng, int x, int &y){	// x argumento por referencia
+	// Convert x, y to arena index
+	int k = y - 5, l = x - 11;
+	bool possible = true;
+	for(int i = leng-1; i >= 0; --i){
+		for(int j = 0; j < leng; ++j){
+			if(-37 == matriz1[i][j]){
+				if(k + i == 19){
+					possible = false;
+					i = -1;
+					break;
+				}
+			}
+		}
+	}
+	if(true == possible){
+		clearM(matriz1, leng, x, y);
+		++y;
+		printM(matriz1, leng, x , y);
+	}
+}
+
+
 void drawArena(){
-	// Drawing indications:
+	// User indications:
 	gotoXY(11, 27);
 	cout << "Exit: Enter";
 	gotoXY(11, 1);
-	cout << "To move: A D";
+	cout << "You can push:";
 	gotoXY(11, 2);
-	cout << "Change piece: W";
-	gotoXY(11, 3);
-	cout << "Rotate it: Q E";
+	cout << "W A S D  Q E";
 	// Drawing arena:
 	int x=0, y=0;
 	for(x = 10, y = 5; y < 25; ++y){
@@ -201,7 +221,6 @@ int main(){
 				break;
 				case 7:
 					moveMLeft(tetr7, arena, 3, x, y);
-							
 				break;
 				default:				
 				break;
@@ -419,6 +438,33 @@ int main(){
 			}
 		break;
 
+		case 'S':
+		case 's':
+			switch(list){
+				case 1:
+					moveMDown(tetr1, arena, 4, x, y);
+				break;
+				case 2:
+					moveMDown(tetr2, arena, 4, x, y);
+				break;
+				case 3:
+					moveMDown(tetr3, arena, 3, x, y);
+				break;
+				case 4:
+					moveMDown(tetr4, arena, 3, x, y);
+				break;
+				case 5:
+					moveMDown(tetr5, arena, 3, x, y);
+				break;
+				case 6:
+					moveMDown(tetr6, arena, 3, x, y);
+				break;
+				case 7:
+					moveMDown(tetr7, arena, 3, x, y);	
+				break;
+				default:				
+				break;
+			}
 
 		break;
 
